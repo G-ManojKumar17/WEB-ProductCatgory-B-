@@ -6,7 +6,7 @@ import { Categories } from '../models/categories';
   providedIn: 'root'
 })
 export class CategoriesService {
-  private apiUrlCategories = 'https://web-productcatgory-b.onrender.com';
+  private apiUrlCategories = 'https://render.com/docs/web-services#port-binding';
 
   constructor(private http: HttpClient) {}
 
