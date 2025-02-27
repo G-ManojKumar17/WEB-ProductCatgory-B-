@@ -6,12 +6,12 @@ import { Categories } from '../models/categories';
   providedIn: 'root'
 })
 export class CategoriesService {
-  private apiUrlCategories = 'https://web-productcatgory-b.onrender.com';
+  private apiUrlCategories = 'https://web-productcatgory-b.onrender.com/categories';
 
   constructor(private http: HttpClient) {}
 
     getCategories(): Observable<Categories[]> {
-      return this.http.get<Categories[]>(`${this.apiUrlCategories}/categories`)
+      return this.http.get<Categories[]>(`${this.apiUrlCategories}`)
     }
  
     addCategories(category: any): Observable<Categories[]> {
