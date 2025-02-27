@@ -8,12 +8,12 @@ import { Products } from '../models/products'
 })
 export class ProductService {
 
-  private apiUrlProducts = 'http://localhost:3100/products';
+  private apiUrlProducts = 'https://web-productcatgory-b.onrender.com';
 
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Products[]> {
-    return this.http.get<Products[]>(`${this.apiUrlProducts}`)
+    return this.http.get<Products[]>(`${this.apiUrlProducts}/products`)
   }
 
   addProducts(products: Products): Observable<Products[]> {
