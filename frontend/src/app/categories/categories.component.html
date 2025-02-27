@@ -1,0 +1,41 @@
+<div class="container">
+  <h2 class="text-center">Category List</h2>
+
+  <form class="form-inline" (ngSubmit)="addCategories(formref)" #formref="ngForm">
+    <input class="form-control mr-2" type="text"  ngModel name="c_name" placeholder="Enter category name" required>
+    <button class="btn btn-primary" type="submit" [disabled]="!formref.valid">Add Category</button>
+  </form>
+
+  <form (ngSubmit)="updateCategories(upref)" #upref="ngForm">
+    
+    <input class="form-control mr-2" type="number" ngModel name="c_id" placeholder="Enter category ID" required>
+
+    <input class="form-control mr-2" type="text" ngModel name="c_name" placeholder="Enter updating category name" required>
+    <br>
+    <button class="btn btn-warning" type="submit" [disabled]="!upref.valid">Update</button>
+  
+  </form>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Category ID</th>
+        <th>Category Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories">
+        <td>{{ category.c_id }}</td>
+        <td>{{ category.c_name }}</td>
+        <td>
+          <button class="btn btn-danger" type="button" (click)="deleteCategories(category.c_id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <a routerLink="/products" routerLinkActive="active" class="btn btn-link">want to add product?</a>
+  </div>
+</div>

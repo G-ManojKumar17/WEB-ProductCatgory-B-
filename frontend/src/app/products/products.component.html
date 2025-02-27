@@ -1,0 +1,67 @@
+<div class="container">
+  <h2 class="text-center">Product List</h2>
+
+  <form class="form-inline" (ngSubmit)="addProducts(formref)" #formref="ngForm">
+    <select class="form-control mr-2" ngModel name="c_id" required>
+      <option value="" disabled>Select a Category</option>
+      <option *ngFor="let categories of categories" [value]="categories.c_id">
+        {{ categories.c_name }}
+      </option>
+    </select>
+
+    <input class="form-control mr-2" type="text" ngModel name="p_name" placeholder="Enter product name" required>
+    <button class="btn btn-primary" type="submit" [disabled]="!formref.valid">Add Products</button>
+  </form>
+
+  <form (ngSubmit)="updateProducts(upref)" #upref="ngForm">
+  
+    <input class="form-control mr-2" type="text" ngModel name="p_id" placeholder="Enter product id">  
+  
+    <input class="form-control mr-2" type="text" ngModel name="p_name" placeholder="Enter updating product name">
+    
+    <select class="form-control mr-2" ngModel name="c_id" required>
+      <option value="" disabled>Select a Category</option>
+      <option *ngFor="let category of categories" [value]="category.c_id">
+        {{ category.c_name }}
+      </option>
+    </select>
+    <br>
+    <button class="btn btn-warning" type="submit" [disabled]="!upref.valid">Update</button>
+  
+  </form>
+  
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Category ID</th>
+        <th>Category Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+        <td>{{ product.p_id }}</td>
+        <td>{{ product.p_name }}</td>
+        <td>{{ product.c_id }}</td>
+        <td>{{ product.c_name }}</td>
+        <td>
+          <button class="btn btn-danger" type="button" (click)="deleteProducts(product.p_id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <a routerLink="/categories" routerLinkActive="active" class="btn btn-link">want to add category?</a>
+    <br>
+    <br>
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+
+  </div>
+
+
+</div>
