@@ -4,8 +4,8 @@
   <form class="form-inline" (ngSubmit)="addProducts(formref)" #formref="ngForm">
     <select class="form-control mr-2" ngModel name="c_id" required>
       <option value="" disabled>Select a Category</option>
-      <option *ngFor="let categories of categories" [value]="categories.c_id">
-        {{ categories.c_name }}
+      <option *ngFor="let category of categories" [value]="category.c_id">
+        {{ category.c_name }}
       </option>
     </select>
 
@@ -14,10 +14,8 @@
   </form>
 
   <form (ngSubmit)="updateProducts(upref)" #upref="ngForm">
-  
-    <input class="form-control mr-2" type="text" ngModel name="p_id" placeholder="Enter product id">  
-  
-    <input class="form-control mr-2" type="text" ngModel name="p_name" placeholder="Enter updating product name">
+    <input class="form-control mr-2" type="text" ngModel name="p_id" placeholder="Enter product ID">
+    <input class="form-control mr-2" type="text" ngModel name="p_name" placeholder="Enter new product name">
     
     <select class="form-control mr-2" ngModel name="c_id" required>
       <option value="" disabled>Select a Category</option>
@@ -25,12 +23,9 @@
         {{ category.c_name }}
       </option>
     </select>
-    <br>
-    <button class="btn btn-warning" type="submit" [disabled]="!upref.valid">Update</button>
-  
-  </form>
-  
 
+    <button class="btn btn-warning" type="submit" [disabled]="!upref.valid">Update</button>
+  </form>
 
   <table class="table table-bordered">
     <thead>
@@ -43,7 +38,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+      <tr *ngFor="let product of products">
         <td>{{ product.p_id }}</td>
         <td>{{ product.p_name }}</td>
         <td>{{ product.c_id }}</td>
@@ -55,13 +50,15 @@
     </tbody>
   </table>
 
-  <div class="text-center">
-    <a routerLink="/categories" routerLinkActive="active" class="btn btn-link">want to add category?</a>
-    <br>
-    <br>
-    <pagination-controls (pageChange)="page = $event"></pagination-controls>
-
+  <!-- Pagination Controls -->
+   
+  <div class="pagination text-center" *ngIf="totalPages > 1">
+    <button class="btn btn-outline-primary" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">⬅ Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button class="btn btn-outline-primary" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next ➡</button>
   </div>
 
-
+  <div class="text-center">
+    <a routerLink="/categories" routerLinkActive="active" class="btn btn-link">Want to add a category?</a>
+  </div>
 </div>

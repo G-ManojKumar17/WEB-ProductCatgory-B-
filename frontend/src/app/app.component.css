@@ -1,18 +1,32 @@
 /* Global styles for the application */
+:root {
+    --primary-color: #343a40; /* Define primary color */
+    --background-color: #f8f9fa; /* Define background color */
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: var(--background-color);
     margin: 0;
     padding: 0;
 }
 
+
 h1, h2 {
-    color: #343a40;
+    color: var(--primary-color);
     text-align: center;
+    margin: 20px 0; /* Add margin for spacing */
 }
 
+
 .container {
-    max-width: 1200px;
+    max-width: 90%; /* Changed to 90% for better responsiveness */
     margin: 0 auto;
     padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px; /* Reduced padding on smaller screens */
+    }
 }

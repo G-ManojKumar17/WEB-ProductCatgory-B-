@@ -1,17 +1,42 @@
 const sql = require('mysql2')
 const db = require('../Database/db');
 
-const getProduct = (req,res) => {
-    const sql = `select * from products` 
-    db.query(sql,(err,data)=>{
-        if(err){
-            console.log("</ get product> Error:", err);
+const getProduct = (req, res) => { 
+    let page = parseInt(req.query.page) || 1;  // Default to page 1
+    let limit = parseInt(req.query.limit) || 10;  // Default limit to 4 per page
+    let offset = (page - 1) * limit;
+
+    // Get paginated products
+    const sql = `SELECT * FROM products LIMIT ? OFFSET ?`;
+    
+    // Count total products
+    const countSql = `SELECT COUNT(*) AS total FROM products`;
+
+    db.query(sql, [limit, offset], (err, data) => {
+        if (err) {
+            console.error("Error fetching products:", err);
+            return res.status(500).json({ error: "Database error" });
         }
-        else{
-            res.send(data)
-        }
-    })
-}
+
+        db.query(countSql, (err, countResult) => {
+            if (err) {
+                console.error("Error fetching product count:", err);
+                return res.status(500).json({ error: "Database error" });
+            }
+
+            let totalRecords = countResult[0].total;
+            let totalPages = Math.ceil(totalRecords / limit);
+
+            res.json({
+                products: data,
+                currentPage: page,
+                totalPages: totalPages,
+                totalRecords: totalRecords
+            });
+        });
+    });
+};
+
 
 const addProduct =  (req,res)=>{
     const incomming = req.body;

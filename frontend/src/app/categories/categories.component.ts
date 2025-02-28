@@ -32,6 +32,7 @@ export class CategoriesComponent implements OnInit {
     this.categoriesServices.addCategories(this.newCategory.c_name).subscribe(()=>{
       // console.log("API response: (Data Added)");   //debugging
       this.loadCategories();
+      data.reset();
     }
     );
   }
@@ -44,6 +45,7 @@ export class CategoriesComponent implements OnInit {
     this.categoriesServices.updateCategories(this.uC.c_id, this.uC.c_name).subscribe(()=>{
       // console.log("Data Updated");   //debigging
       this.loadCategories();
+      data.reset();
     })
   }
 

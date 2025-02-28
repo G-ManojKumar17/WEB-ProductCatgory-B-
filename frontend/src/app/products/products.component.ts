@@ -31,10 +31,14 @@ export class ProductsComponent {
     c_name: ""
   }
 
+  currentPage: number = 1;
+  totalPages: number = 1;
+  limit: number = 10;  // Items per page
+
   constructor(private ProductService: ProductService, private categoriesServices: CategoriesService) { }
 
   ngOnInit(): void {
-    this.loadProducts();
+    this.loadProducts(this.currentPage);
     this.loadCategories();
   }
 
@@ -51,7 +55,7 @@ export class ProductsComponent {
     // console.log(x)
     this.ProductService.updateProducts(this.updateProduct).subscribe(() => {
       // console.log("Data Updated");  //debigging
-      this.loadProducts();
+      this.loadProducts(this.currentPage);
     })
     data.resetForm();
   }
@@ -65,11 +69,19 @@ export class ProductsComponent {
   }
 
   //to get product list
-  loadProducts(): void {
-    this.ProductService.getProducts().subscribe((data) => {
-      // console.log("API response:", data)
-      this.products = data;
+  loadProducts(page: number) {
+    this.ProductService.getProducts(page, this.limit).subscribe(response => {
+      this.products = response.products;
+      this.currentPage = response.currentPage;
+      this.totalPages = response.totalPages;
     });
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.loadProducts(page);
+    }
   }
 
   //to add product 
@@ -90,7 +102,7 @@ export class ProductsComponent {
 
     this.ProductService.addProducts(this.newProducts).subscribe(() => {
       // console.log("API response: (Data Added)");   //debugging
-      this.loadProducts();
+      this.loadProducts(this.currentPage);
       // console.log(this.products)     //debugging
 
     }
@@ -105,11 +117,9 @@ export class ProductsComponent {
     // console.log("delete", p_id)   debugging
     this.ProductService.deleteProducts(p_id).subscribe(() => {
       // console.log("Data Deleted")   debugging
-      this.loadProducts();
+      this.loadProducts(this.currentPage);
     });
 
   }
 
-  page: number = 1;
-  itemsPerPage: number = 10;
 }

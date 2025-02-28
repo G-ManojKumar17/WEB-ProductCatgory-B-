@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-color: #343a40; /* Define primary color */
+    --background-color: #f8f9fa; /* Define background color */
+    --text-color: #212529; /* Define text color */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.container {
+    max-width: 90%; /* Ensure container is responsive */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    .container {
+        padding: 10px; /* Reduced padding on smaller screens */
+    }
+}
