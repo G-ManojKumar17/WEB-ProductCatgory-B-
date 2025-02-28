@@ -47,8 +47,9 @@ export class ProductsComponent {
     // console.log(updateProduct);
     // console.log("your data",data.value)
     this.updateProduct.p_id = data.value.p_id;
-    this.updateProduct.p_name = data.value.p_name;
-    this.updateProduct.c_id = data.value.c_id;
+    let default_p = this.products.find((el) => el.p_id == data.value.p_id)
+    this.updateProduct.p_name = data.value.p_name || default_p?.p_name;
+    this.updateProduct.c_id = data.value.c_id || default_p?.c_id;
     let x = this.categories.find((el) => el.c_id == data.value.c_id)
     this.updateProduct.c_name = x?.c_name;
 
