@@ -10,14 +10,10 @@ app.use(cors())
 
 
 // Serve Angular static files
-app.use(express.static(path.join(__dirname, 'dist/your-angular-app')));
 
 app.use('/api', route); // Keep API routes separate
 
-// // Handle Angular routes (serve index.html for frontend paths)
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'dist/your-angular-app/index.html'));
-// });
+// Handle Angular routes (serve index.html for frontend paths)
 
 
 app.listen(port, ()=>{
