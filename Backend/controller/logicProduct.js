@@ -3,7 +3,7 @@ const db = require('../Database/db');
 
 const getProduct = (req, res) => { 
     let page = parseInt(req.query.page) || 1;  // Default to page 1
-    let limit = parseInt(req.query.limit) || 10;  // Default limit to 4 per page
+    let limit = parseInt(req.query.limit) || 10;  // Default limit to 10 per page
     let offset = (page - 1) * limit;
 
     // Get paginated products
@@ -15,13 +15,13 @@ const getProduct = (req, res) => {
     db.query(sql, [limit, offset], (err, data) => {
         if (err) {
             console.error("Error fetching products:", err);
-            return res.status(500).json({ error: "Database error" });
+            return res.status(500).json({ message: "Product error",error: "Database error" });
         }
-
+        console.log("First part executed")
         db.query(countSql, (err, countResult) => {
             if (err) {
                 console.error("Error fetching product count:", err);
-                return res.status(500).json({ error: "Database error" });
+                return res.status(500).json({  message: "Product count error",error: "Database error" });
             }
 
             let totalRecords = countResult[0].total;
