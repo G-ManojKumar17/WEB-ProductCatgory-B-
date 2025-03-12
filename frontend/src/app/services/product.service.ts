@@ -8,8 +8,8 @@ import { Products } from '../models/products'
 })
 export class ProductService {
 
-  // private apiUrlProducts = 'https://web-productcatgory-b.onrender.com/api/products';
-  private apiUrlProducts = 'http://localhost:3100/api/products';
+  private apiUrlProducts = 'https://web-productcatgory-b.onrender.com/api/products';
+  // private apiUrlProducts = 'http://localhost:3100/api/products';
 
   constructor(private http: HttpClient) { }
 

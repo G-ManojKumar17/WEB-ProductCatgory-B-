@@ -14,8 +14,8 @@
   </form>
 
   <form (ngSubmit)="updateProducts(upref)" #upref="ngForm">
-    <input class="form-control mr-2" type="text" ngModel name="p_id" placeholder="Enter product ID">
-    <input class="form-control mr-2" type="text" ngModel name="p_name" placeholder="Enter new product name">
+    <input class="form-control mr-2" type="text" ngModel name="p_id" placeholder="Enter product ID" required>
+    <input class="form-control mr-2" type="text" ngModel name="p_name" placeholder="Enter new product name" required>
     
     <select class="form-control mr-2" ngModel name="c_id" required>
       <option value="" disabled>Select a Category</option>
